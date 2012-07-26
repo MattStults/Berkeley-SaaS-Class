@@ -9,6 +9,9 @@ class Dessert
   def delicious?
     true
   end 
+
+  attr_accessor :name
+  attr_accessor :calories
 end
 
 class JellyBean < Dessert
@@ -19,4 +22,5 @@ class JellyBean < Dessert
   def delicious?
     @flavor != "black licorice"
   end 
+  attr_accessor :flavor
 end
