@@ -11,10 +11,45 @@ class Class
     }
   end 
 end
-class Foo
-  attr_accessor_with_history :bar
+
+#a
+class Numeric
+  @@currencies = {'dollar' => 1.0, 'yen' => 0.013, 'euro' => 1.292, 'rupee' => 0.019}
+  def self.currency_conversion(currency)
+  	singular_currency = currency.to_s.gsub( /s$/, '')
+    if @@currencies.has_key?(singular_currency)
+      @@currencies[singular_currency]
+	else
+		nil
+  	end
+  end
+  def method_missing(method_id)
+  	conversion = Numeric.currency_conversion method_id
+  	if(conversion != nil)
+  		self * conversion
+  	else
+  		super
+  	end
+  end
+  def in(method_id)
+  	conversion_out = Numeric.currency_conversion method_id
+  	self * (1/conversion_out)
+  end
 end
-f = Foo.new
-f.bar = 1
-f.bar = 2
-f.bar_history # => if your code works, should be [nil,1,2]
+
+#b
+class String
+	def palindrome?
+		temp = self.gsub(/\W+/, "")
+		temp.downcase!
+		temp == temp.reverse
+	end
+end
+
+#c
+module Enumerable
+	def palindrome?
+		array = self.collect
+		array == array.reverse
+	end
+end
