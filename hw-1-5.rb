@@ -49,7 +49,7 @@ end
 #c
 module Enumerable
 	def palindrome?
-		array = self.collect
+		array = self.collect { |x| x }
 		array == array.reverse
 	end
 end
